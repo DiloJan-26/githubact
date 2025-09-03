@@ -328,7 +328,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ### Step 10: Initialize the Cluster and Install CNI
 ```bash
 sudo kubeadm config images pull
-sudo kubeadm init
+sudo kubeadm init --control-plane-endpoint=<MASTER_IP>:6443 --pod-network-cidr=10.244.0.0/16
 ```
 #### After Initialzing the Cluster Connect to it and apply the CNI yaml (We're using Weave CNI in this guide)
 
@@ -345,7 +345,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 ```bash
 #Apply the CNI YAML
-kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.30/net.yaml
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
 
 ### Step 11: Join Worker Nodes to the Cluster
